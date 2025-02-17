@@ -1,181 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Evvento.in</title>
-  <link rel="icon" type="image/png"href="/images/Evento-removebg-preview.png">
-  <link rel="stylesheet" href="style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body>
-  <div class="main_body">
-      <nav>
-        <div class="nav_holder">
-          <div class="logo">
-            <a class="navbar-brand" href="#Home" ><img src="/images/Evento-removebg-preview.png" alt="Bootstrap"></a>
-          </div>
-          <div class="nav_contents">
-            <ul>
-              <li><a href="#Home">Home</a></li>
-              <li><a href="#Events">Events</a></li>
-              <li><a href="#about-us">About Us </a></li>
-              <li><a href="#Contact">Contact</a></li>
-              <li></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <main>
-        <section class="hero" id="Home">
-            <div class="swiper hero-slider">
-              <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="/images/utkarsh1.webp" alt="Banner 1"></div>
-                    <div class="swiper-slide"><img src="/images/coming soon.jpeg" alt="Banner 2"></div>
-                    <div class="swiper-slide"><img src="/images/coming soon.jpeg" alt="Banner 3"></div>
-                    <div class="swiper-slide"><img src="/images/coming soon.jpeg" alt="Banner 4"></div>
-                </div>
-            </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        </section>
-        <!-- -------------------Recommended events ------------------------ -->
-        <section class="Event-details"id ="Events">
-          <div class="container">
-            <h2 class = "section-title">Recommeded Events</h2>
-            <div class="evvent-card-container">
-              <!-- Event 1 -->
-              <div class="evvent-card">
-                  <img src="/images/utkarsh1.webp" alt="Event 1">
-                  <div class="event-info">
-                      <h3>Utkarsh</h3>
-                      <p>📅 March 23, 2025 | 🕒 12:00 AM</p>
-                      <p>📍 Pccoer Campus</p>
-                      <a href="#" class="btn-view">View Details</a>
-                  </div>
-              </div>
-               <!-- Event 2 -->
-            <div class="evvent-card">
-              <img src="/images/soon.jpeg" alt="Event 2">
-              <div class="event-info">
-                  <h3>Event 2</h3>
-                  <p>📅 April 5, 2025 | 🕒 10:00 AM</p>
-                  <p>📍Pune</p>
-                  <a href="#" class="btn-view">View Details</a>
-              </div>
-          </div>
-                <!-- Event 3 -->
-            <div class="evvent-card">
-              <img src="/images/soon.jpeg" alt="Event 3">
-              <div class="event-info">
-                  <h3>Event 3</h3>
-                  <p>📅 June 10, 2025 | 🕒 10:00 AM</p>
-                  <p>📍Pune</p>
-                  <a href="#" class="btn-view">View Details</a>
-              </div>
-          </div>
-          </div>
-        </section>
-        <!-- ----------------------Upcoming Events---------------------------- -->
-        <section id="upcoming-events">
-          <h2>Upcoming Events...</h2>
-          <div class="events-container">
-              <div class="event-card">
-                  <img src="/images/upcoming.jpg" alt="Event 1">
-                  <h3>Music Concert</h3>
-                  <p>Date: March 10, 2025</p>
-                  <p>Location: Pune, India</p>
-              </div>
-      
-              <div class="event-card">
-                  <img src="/images/upcoming.jpg" alt="Event 2">
-                  <h3>Tech Conference</h3>
-                  <p>Date: April 5, 2025</p>
-                  <p>Location: Bangalore, India</p>
-              </div>
-      
-              <div class="event-card">
-                  <img src="/images/upcoming.jpg" alt="Event 3">
-                  <h3>Food Festival</h3>
-                  <p>Date: May 15, 2025</p>
-                  <p>Location: Mumbai, India</p>
-              </div>
-          </div>
-      </section>
-      <!-- -------------------------------About-Us--------------------------------------------- -->
-      <section id="about-us">
-        <div class="about-container">
-            <div class="about-content">
-                <h2>About Us</h2>
-                <p>Welcome to our platform evvento.in, where you can discover and book exciting events happening near you. Whether it's concerts, tech conferences, or food festivals, we bring them all to one place.</p>
-                <p>Our mission is to connect event organizers with enthusiastic attendees, making event discovery seamless and enjoyable. Join us and never miss out on the best experiences!</p>
-            </div>
-            <div class="about-image">
-                <img src="/images/About.jpg" alt="About Us">
-            </div>
-        </div>
-    </section>
-    
-      <!-- ------------------------------Contact - form --------------------------------- -->
-        <section class="contact-form" id="Contact">
-          <div class="container">
-              <h2>📩 Contact Us</h2>
-              <form name="submit-to-google-sheet" id="contactForm">
-                  <input type="text" name="Name" placeholder="Your Name" required>
-                  <input type="email" name="email" placeholder="Your Email" rquired>
-                  <textarea name="message" rows="4" placeholder="Your Message"></textarea>
-                  <button type="submit">Submit</button>
-              </form>
-              <span id="msg"></span>
-              <p id="form-status"></p>
-          </div>
-      </section>
-      </main>
-      <footer class = "footer">
-        <div class = "footer-container">
-          <div class ="footer-social">
-            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-          </div>
-          <div class="footer-contact">
-            <p>📞 +91 7020481327</p>
-            <p>📧 contact@evvento.in</p>
-          </div>
-          <div class="footer-bottom">
-            <p>&copy; 2025 evvento.in All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-      <div class="seperation"></div>
-      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-      <script src="script.js"></script>
-      <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-      <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxlJ59esop_PPJuir3nNMiUI3ZDlGNYBEKeZ1edO7PEnkp_6l-VS3ba8oRLG09DRCrc/exec'
-        const form = document.forms['submit-to-google-sheet']
-        const msg = document.getElementById("msg")
-      
-        form.addEventListener('submit', e => {
-          e.preventDefault()
-          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-               msg.innerHTML = "Message Sent Succesfully"
-               setTimeout(function(){
-                msg.innerHTML = ""
-               },5000)
-               form.reset()
-            })
-            .catch(error => console.error('Error!', error.message))
-        })
-      </script>
-  </div>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/11.3.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/11.3.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/11.3.1/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>Welcome</h2>
+      <h1>Firebase Hosting Setup Complete</h1>
+      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    </div>
+    <p id="load">Firebase SDK Loading&hellip;</p>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>
+  </body>
 </html>
