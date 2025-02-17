@@ -32,7 +32,7 @@ nav {
   z-index: 1000;
   color: #ff6000;
   max-width: 100vw;
-  height: 80px;
+  height: 65px;
   background-color: #454545;
   display: flex;
   justify-content: center;
@@ -43,7 +43,7 @@ nav {
   min-width: 80vw;
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Fixed */
+  align-items: center;
 }
 
 .logo {
@@ -86,12 +86,21 @@ main {
   display: flex;
   flex-direction: column;
 }
+.btm {
+  background: #ff5733;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
 /* ------------------------Slider-------------------- */
 
 .swiper {
   width: 100%;
-  height: 300px;
-  margin-top: 42px;
+  height: 250px;
+  margin-top: 35px;
 }
 
 .swiper-slide {
@@ -112,13 +121,15 @@ main {
 .swiper-slide-active {
   transform: scale(1.1);
 }
-
-@media (max-width: 768px) {
-  .swiper-slide img {
-    height: 50vh;
-  }
-}
 /* -----------------------------------Recommended Events details -------------------------------- */
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0px 4px 20px #000000;
+}
 
 .Event-details {
   max-width: 100%;
@@ -132,13 +143,7 @@ main {
   font-weight: bold;
   color: #333;
   margin-bottom: 20px;
-}
-
-.evvent-card-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  align-self: center;
 }
 
 /* Event Card */
@@ -147,12 +152,14 @@ main {
   border-radius: 10px;
   overflow: hidden;
   width: 300px;
+  height: 400px;
   transition: transform 0.3s;
+  margin: 20px auto 20px;
 }
 
 .evvent-card:hover {
   transform: scale(1.05);
-  box-shadow: 0px 4px 20px #ff6000;
+  box-shadow: 0px 4px 20px #8e8686;
 }
 
 /* Event Image */
@@ -191,6 +198,110 @@ main {
 
 .btn-view:hover {
   background: #cc4422;
+}
+/*-------------------------- Style for the event card flip effect -------------------*/
+
+.evvent-card {
+  width: 300px;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  position: relative;
+}
+
+.card-inner.flipped {
+  transform: rotateY(
+    180deg
+  ); /* Flip the card when the "flipped" class is added */
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the back when flipping */
+}
+
+.card-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.card-back {
+  background: #f0f0f0;
+  padding: 20px;
+  transform: rotateY(180deg); /* Initially, the back is flipped */
+}
+
+.event-info h3,
+.event-details h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.event-info p,
+.event-details p {
+  font-size: 0.9rem;
+}
+
+.btn-view {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-view:hover {
+  background-color: #0056b3;
+}
+
+.btn-buy-now {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-buy-now:hover {
+  background-color: #218838;
+}
+
+/* Add a back button to the back of the card */
+.card-back {
+  background: #f0f0f0;
+  padding: 20px;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-back .btn-back {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.card-back .btn-back:hover {
+  background-color: #c82333;
 }
 
 /*---------------------------- Upcoming Events Section -------------------------*/
@@ -300,18 +411,6 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .about-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .about-content {
-    text-align: center;
-  }
-}
-
 /* -------------------Contact-US------------------------------- */
 .contact-form {
   padding: 50px 20px;
@@ -319,7 +418,7 @@ main {
   text-align: center;
 }
 
-.container {
+.containeer {
   max-width: 500px;
   margin: auto;
   background: white;
@@ -347,7 +446,7 @@ button {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
   margin-top: 15px;
   cursor: pointer;
@@ -391,4 +490,150 @@ button:hover {
 }
 .footer-social a:hover {
   color: #ff6000;
+}
+
+/* ------------------------- Media - Screens --------------------------- */
+
+.menu-toggle {
+  display: none; /* Hidden by default */
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .nav_contents {
+    display: none; /* Hide menu initially */
+    flex-direction: column;
+    position: absolute;
+    top: 65px; /* Adjusted to match nav height */
+    right: 0;
+    background-color: #454545;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .nav_contents li {
+    padding: 10px;
+  }
+
+  .nav_contents.show {
+    display: flex; /* Show menu when toggled */
+  }
+
+  .menu-toggle {
+    display: block; /* Show hamburger icon */
+  }
+}
+/* General Responsive Reset */
+@media (max-width: 1024px) {
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Navigation Bar */
+@media (max-width: 768px) {
+  .nav_holder {
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+  }
+
+  .nav_contents > ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Slider */
+@media (max-width: 768px) {
+  .swiper {
+    height: 200px;
+  }
+
+  .swiper-slide img {
+    height: 50vh;
+    object-fit: cover;
+  }
+}
+
+/* Recommended Events */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    box-shadow: none;
+  }
+
+  .evvent-card {
+    width: 90%;
+    height: auto;
+  }
+
+  .event-info h3 {
+    font-size: 18px;
+  }
+
+  .event-info p {
+    font-size: 14px;
+  }
+}
+
+/* Upcoming Events */
+@media (max-width: 768px) {
+  .events-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event-card {
+    width: 90%;
+  }
+}
+
+/* About Us Section */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-content {
+    text-align: center;
+  }
+
+  .about-image img {
+    width: 90%;
+  }
+}
+
+/* Contact Us Form */
+@media (max-width: 768px) {
+  .containeer {
+    width: 90%;
+    padding: 15px;
+  }
+
+  input,
+  textarea {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
+
+/* Footer */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 10px;
+  }
+
+  .footer-social a {
+    font-size: 20px;
+  }
 }

@@ -1,42 +1,185 @@
+/* loginstyle.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #ff6000,
+    #ffbb91
+  ); /* Soft gradient background */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  color: #fff;
 }
+
 .container {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
+
+.form-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 26px;
+  font-weight: bold;
+}
+
 input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 12px;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
+
+input::placeholder {
+  color: #888;
+}
+
+input:focus {
+  border-color: #6c63ff;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+}
+
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  background-color: #6c63ff;
   border: none;
-  border-radius: 5px;
-  background: #007bff;
   color: white;
+  font-size: 16px;
   cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 button:hover {
-  background: #0056b3;
+  background-color: #5b54d5;
+  transform: translateY(-2px);
 }
-.toggle-btn {
-  background: transparent;
-  color: #007bff;
-  border: none;
-  margin-top: 10px;
-  cursor: pointer;
+
+a {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Hide the boxes initially */
+#login-box {
+  display: block;
+}
+
+#signup-box {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
+
+  .form-box {
+    width: 100%;
+  }
+}
+
+/* Animations for form box switching */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+#signup-box {
+  animation: slideInFromLeft 0.5s ease-out;
+}
+
+#login-box {
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+/* Design the right side of the form to look interesting */
+.container::after {
+  content: "";
+  display: block;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(200, 200, 255, 0.5)
+  );
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1; /* Ensure it's behind the form */
+}
+
+.container {
+  position: relative; /* To allow for the ::after pseudo-element */
+}
+
+/* Add some shapes for decoration */
+.container::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(108, 99, 255, 0.3);
+  border-radius: 50%;
+  z-index: -1;
+  transform: translateY(-50%);
+}
+
+.container .form-box {
+  position: relative;
+  z-index: 1;
 }
