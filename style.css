@@ -95,6 +95,26 @@ main {
   font-size: 16px;
   cursor: pointer;
 }
+
+/* ------------------------Navbar greetings name ------------------------------ */
+
+/* Style the greeting */
+.greeting {
+  font-size: 16px;
+  color: #ffffff; /* Stylish orange */
+  background: linear-gradient(to right, #ff2f00, #ffbb91); /* Gradient effect */
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Add hover effect */
+.greeting:hover {
+  transform: scale(1.1); /* Slight zoom */
+  background: linear-gradient(to right, #ff6000, #ffbb91);
+}
 /* ------------------------Slider-------------------- */
 
 .swiper {
@@ -505,29 +525,75 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+  /* Show/hide navigation */
+  /* Navigation container */
   .nav_contents {
-    display: none; /* Hide menu initially */
+    position: fixed;
+    top: 0;
+    right: -100%; /* Initially hidden outside the viewport */
+    width: 50%; /* Adjust width as needed */
+    height: 100vh; /* Full height */
+    background: rgba(34, 34, 34, 0.95); /* Dark background with opacity */
+    display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 65px; /* Adjusted to match nav height */
-    right: 0;
-    background-color: #454545;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
+    align-items: center;
+    justify-content: center;
+    transition: right 0.5s ease-in-out; /* Smooth slide-in effect */
   }
 
-  .nav_contents li {
-    padding: 10px;
-  }
-
+  /* Show menu when toggled */
   .nav_contents.show {
-    display: flex; /* Show menu when toggled */
+    right: 0; /* Slide in */
   }
 
+  /* Style for navigation links */
+  .nav_contents ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav_contents ul li {
+    margin: 20px 0;
+  }
+
+  .nav_contents ul li a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .nav_contents ul li a:hover {
+    color: #ff5733; /* Highlight effect */
+  }
+
+  /* Style for menu toggle button */
   .menu-toggle {
     display: block;
-    display: contents;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 1001;
+  }
+
+  /* Close button inside navbar */
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .greeting {
+    margin-top: 10px;
   }
 }
 /* General Responsive Reset */
@@ -550,6 +616,9 @@ button:hover {
     flex-direction: column;
     gap: 10px;
   }
+  .logo {
+    margin-top: 5px;
+  }
 }
 
 /* Slider */
@@ -559,8 +628,8 @@ button:hover {
   }
 
   .swiper-slide img {
-    height: 50vh;
-    object-fit: cover;
+    height: 20vh;
+    object-fit: fill;
   }
 }
 
@@ -569,13 +638,8 @@ button:hover {
   .container {
     flex-direction: column;
     align-items: center;
-    height: 90px;
-    width: 90px;
-  }
-
-  .evvent-card {
     width: 90%;
-    height: auto;
+    height: 90%;
   }
 
   .event-info h3 {

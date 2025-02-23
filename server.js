@@ -1,32 +1,23 @@
-const express = require("express");
-const { Pool } = require("pg");
-const cors = require("cors");
+// 🔹 Form Switching Logic
+const signupBox = document.getElementById('signup-box');
+const loginBox = document.getElementById('login-box');
+const switchToSignup = document.getElementById('switch-to-signup');
+const switchToLogin = document.getElementById('switch-to-login');
 
-const app = express();
-app.use(cors());
-app.use(express.json()); // Allows JSON data parsing
+if (switchToSignup) {
+  switchToSignup.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("Switching to Signup Form");
+    loginBox.style.display = "none";
+    signupBox.style.display = "block";
+  });
+}
 
-// PostgreSQL connection
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "evvento",
-  password: "",
-  port: 5432, // Default PostgreSQL port
-});
-
-// API to fetch data
-app.get("/data", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM your_table");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server Error");
-  }
-});
-
-// Start server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
+if (switchToLogin) {
+  switchToLogin.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("Switching to Login Form");
+    signupBox.style.display = "none";
+    loginBox.style.display = "block";
+  });
+}
