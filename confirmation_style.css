@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.confirmation-container {
+  max-width: 500px;
+  background: white;
+  padding: 20px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #28a745;
+}
+
+.booking-details,
+.qr-section {
+  margin-top: 20px;
+  text-align: left;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  align-items: center;
+}
+
+button {
+  background-color: #ff6000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #ff6000;
+}
+
+.qr-section {
+  text-align: center;
+  align-items: center;
+}
+
+.qr {
+  align-items: center;
+}

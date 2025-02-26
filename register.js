@@ -233,3 +233,58 @@ function sendVerificationCode(user) {
       alert("MFA Error: " + error.message);
     });
 }
+// 🔹 Function to show a custom alert box
+function showCustomAlert(message) {
+  // Remove existing alert (if any)
+  let existingAlert = document.querySelector(".custom-alert");
+  if (existingAlert) existingAlert.remove();
+
+  // Create new alert box
+  let alertBox = document.createElement("div");
+  alertBox.classList.add("custom-alert");
+
+  // Alert message text
+  let messageText = document.createElement("p");
+  messageText.textContent = message;
+
+  // Close button
+  let closeButton = document.createElement("button");
+  closeButton.textContent = "OK";
+  closeButton.onclick = function () {
+    alertBox.classList.remove("show");
+    setTimeout(() => alertBox.remove(), 500);
+  };
+
+  // Append elements
+  alertBox.appendChild(messageText);
+  alertBox.appendChild(closeButton);
+  document.body.appendChild(alertBox);
+
+  // Show alert with animation
+  setTimeout(() => alertBox.classList.add("show"), 100);
+}
+
+// 🔹 Wait for DOM to fully load before attaching event listeners
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded and script is running.");
+
+  // Attach event listeners to "Buy Now" buttons
+  document.querySelectorAll(".btn-buy-now").forEach(button => {
+    button.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent default navigation
+      const eventURL = event.currentTarget.href; // Get event page URL
+
+      // 🔹 Check authentication
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("User is logged in:", user.email);
+          window.location.href = eventURL; // Allow navigation
+        } else {
+          console.warn("User not logged in. Blocking ticket booking.");
+          showCustomAlert("⚠️ You need to log in first to book a ticket!");
+        }
+      });
+    });
+  });
+});
+

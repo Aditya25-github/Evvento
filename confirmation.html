@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="./confirmation_style.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="icon" type="image/png" href="./images/Evento-removebg-preview.png">
+</head>
+<body>
+    <div class="confirmation-container">
+        <h2>🎉 Thank You for Your Payment! 🎉</h2>
+        <p>Your ticket has been booked successfully.</p>
+
+        <div class="booking-details">
+            <h3>📅 Event Details</h3>
+            <p><strong>Event Name:</strong> <span id="event-name"></span></p>
+            <p><strong>Date:</strong> <span id="event-date"></span></p>
+            <p><strong>Tickets Booked:</strong> <span id="ticket-quantity"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>Phone:</strong> <span id="phone"></span></p>
+            <p><strong>Transaction ID:</strong> <span id="transaction-id"></span></p>
+        </div>
+
+        <div class="qr-section">
+            <h3>📲 Your QR Code</h3>
+            <div id="qrcode" class="qr"></div>
+        </div>
+
+        <div class="actions">
+            <button onclick="downloadTicket()"> Download Ticket</button>
+            <button onclick="window.location.href='index.html'"> Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        // ✅ Extract Data from URL
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("event-name").textContent = params.get("event") || "Unknown Event";
+        document.getElementById("event-date").textContent = params.get("date") || "N/A";
+        document.getElementById("ticket-quantity").textContent = params.get("tickets") || "1";
+        document.getElementById("email").textContent = params.get("email") || "N/A";
+        document.getElementById("phone").textContent = params.get("phone") || "N/A";
+        document.getElementById("transaction-id").textContent = params.get("transaction") || "N/A";
+
+        // ✅ Generate QR Code
+        new QRCode(document.getElementById("qrcode"), {
+            text: `Transaction ID: ${params.get("transaction")}\nEvent: ${params.get("event")}\nTickets: ${params.get("tickets")}`,
+            width: 150,
+            height: 150
+        });
+
+        async function downloadTicket() {
+            if (!window.jspdf) {
+                console.error("❌ jsPDF library is not loaded!");
+                alert("PDF generation failed! jsPDF is not available.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // ✅ Set Ticket Background to Orange
+            doc.setFillColor(255, 219, 187); // Orange color (RGB: 255, 102, 0)
+            doc.rect(0, 0, 210, 297, "F"); // Cover full A4 page
+
+            // ✅ Get Ticket Details from URL
+            const event = params.get("event") || "Unknown Event";
+            const date = params.get("date") || "N/A";
+            const tickets = params.get("tickets") || "1";
+            const email = params.get("email") || "N/A";
+            const phone = params.get("phone") || "N/A";
+            const transaction = params.get("transaction") || "N/A";
+
+            // ✅ Add Title
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(22);
+            doc.setTextColor(0, 0, 0); // White Text
+            doc.text("Evvento Ticket Confirmation", 20, 20);
+
+            // ✅ Add Divider Line
+            doc.setDrawColor(0, 0, 0); // White Line
+            doc.setLineWidth(1);
+            doc.line(20, 25, 190, 25);
+
+            let y = 40; // Start Y position
+
+            try {
+                // ✅ Load Icons and Convert to Base64
+                const eventIcon = await loadImageToBase64("./icons/event.png");
+                const dateIcon = await loadImageToBase64("./icons/date.png");
+                const ticketsIcon = await loadImageToBase64("./icons/tickets.png");
+                const emailIcon = await loadImageToBase64("./icons/email.png");
+                const phoneIcon = await loadImageToBase64("./icons/phone.png");
+                const transactionIcon = await loadImageToBase64("./icons/transaction.png");
+
+                // ✅ Add Ticket Details with Icons
+                if (eventIcon) doc.addImage(eventIcon, "PNG", 20, y, 10, 10);
+                doc.text(`Event: ${event}`, 35, y + 5);
+                y += 15;
+
+                if (dateIcon) doc.addImage(dateIcon, "PNG", 20, y, 10, 10);
+                doc.text(`Date: ${date}`, 35, y + 5);
+                y += 15;
+
+                if (ticketsIcon) doc.addImage(ticketsIcon, "PNG", 20, y, 10, 10);
+                doc.text(`Tickets: ${tickets}`, 35, y + 5);
+                y += 15;
+
+                if (emailIcon) doc.addImage(emailIcon, "PNG", 20, y, 10, 10);
+                doc.text(`Email: ${email}`, 35, y + 5);
+                y += 15;
+
+                if (phoneIcon) doc.addImage(phoneIcon, "PNG", 20, y, 10, 10);
+                doc.text(`Phone: ${phone}`, 35, y + 5);
+                y += 15;
+
+                if (transactionIcon) doc.addImage(transactionIcon, "PNG", 20, y, 10, 10);
+                doc.text(`Transaction ID: ${transaction}`, 35, y + 5);
+                y += 25; // Extra space before QR Code
+
+            } catch (error) {
+                console.error("❌ Error loading images:", error);
+            }
+
+            // ✅ QR Code Section (Centered Below Event Details)
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text("Scan QR Code for Ticket Verification", 60, y);
+
+            // ✅ Generate QR Code & Add to PDF
+            const qrCanvas = document.getElementById("qrcode").querySelector("canvas");
+            if (qrCanvas) {
+                const qrDataURL = qrCanvas.toDataURL("image/png");
+                doc.addImage(qrDataURL, "PNG", 75, y + 5, 60, 60);
+            }
+
+            // ✅ Footer
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Thank you for booking with Evvento! Enjoy your event!", 50, y + 80);
+
+            // ✅ Save PDF
+            doc.save(`Ticket_${transaction}.pdf`);
+        }
+
+        // ✅ Function to Convert Image to Base64
+        function loadImageToBase64(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.src = url;
+                img.onload = function () {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0);
+                    resolve(canvas.toDataURL("image/png"));
+                };
+                img.onerror = () => {
+                    console.warn(`⚠️ Failed to load image: ${url}`);
+                    resolve(null);
+                };
+            });
+        }
+    </script>
+</body>
+</html>

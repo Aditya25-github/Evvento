@@ -1,0 +1,148 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #ff6000, #dabdb1);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Purchase Container */
+.purchase-container {
+  display: flex;
+  width: 80%;
+  max-width: 1000px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-in-out;
+}
+
+.purchase-container:hover {
+  transform: perspective(1000px) rotateX(0deg);
+}
+
+/* Left Section - Image */
+.left {
+  width: 40%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+.left img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.2);
+  transition: transform 0.5s;
+}
+
+.left img:hover {
+  transform: scale(1.05);
+}
+
+/* Right Section - Event Details & Form */
+.right {
+  width: 60%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* Form Styling */
+#buyer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#buyer-form input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+}
+
+#buyer-form input:focus {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Button */
+button {
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(255, 69, 96, 0.5);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 69, 96, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .purchase-container {
+    flex-direction: column;
+    width: 90%;
+    transform: none;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .left img {
+    max-height: 250px;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 16px;
+  }
+}

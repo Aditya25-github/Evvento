@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Ticket</title>
+    <link rel="stylesheet" href="./purcasestyles.css">
+    <link rel="icon" type="image/png"href="./images/Evento-removebg-preview.png">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <div class="purchase-container">
+        <div class="left">
+            <img id="event-image" src="" alt="Event Image">
+        </div>
+        <div class="right">
+            <h2 id="event-title"></h2>
+            <p id="event-description"></p>
+            <p id="event-date"></p>
+            <form id="buyer-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="text" name="team-name" placeholder="Your Team Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                <input type="number" name="team-size" placeholder="Team Size" min="1" required>
+                <input type="number" name="ticket-quantity" placeholder="Number of Tickets" min="1" required>
+                <button type="submit">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get event details from URL
+        const params = new URLSearchParams(window.location.search);
+        const event = params.get("event");
+
+        // Sample Event Data (Replace with DB fetch)
+        const events = {
+            "utkarsh": { img: "./images/utkarsh1.webp", title: "Utkarsh", desc: "Join the biggest event!", date: "March 23, 2025" }
+        };
+
+        if (events[event]) {
+            document.getElementById("event-image").src = events[event].img;
+            document.getElementById("event-title").textContent = events[event].title;
+            document.getElementById("event-description").textContent = events[event].desc;
+            document.getElementById("event-date").textContent = events[event].date;
+        }
+    </script>
+
+<script>
+    document.getElementById("buyer-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    // ✅ Collect & Validate Form Data
+    const userData = {
+        name: document.querySelector('[name="name"]').value.trim(),
+        team_name: document.querySelector('[name="team-name"]').value.trim(),
+        team_size: parseInt(document.querySelector('[name="team-size"]').value, 10) || 1, // ✅ Ensure number
+        ticket_quantity: parseInt(document.querySelector('[name="ticket-quantity"]').value, 10) || 1, // ✅ Ensure number
+        email: document.querySelector('[name="email"]').value.trim(),
+        phone: document.querySelector('[name="phone"]').value.trim(),
+        event_name: document.getElementById("event-title").textContent.trim(),
+        amount_paid: parseFloat(document.querySelector('[name="ticket-quantity"]').value) * 1 // ✅ Ensure amount is valid
+    };
+
+    // ✅ Validate Required Fields
+    if (!userData.name || !userData.email || !userData.phone || isNaN(userData.team_size) || isNaN(userData.ticket_quantity)) {
+        alert("⚠️ Please fill in all fields correctly.");
+        return;
+    }
+
+    console.log("📤 Sending Data to Razorpay:", JSON.stringify(userData, null, 2));
+
+    try {
+        // ✅ Step 1: Create Razorpay Order
+        const orderResponse = await fetch("http://localhost:8000/razorpay_order.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...userData, amount: userData.amount_paid * 100 }) // ✅ Send amount in paise
+        });
+
+        const orderData = await orderResponse.json();
+        console.log("📝 Razorpay Order Response:", orderData);
+
+        if (!orderData.id) {
+            alert("❌ Payment initiation failed.");
+            return;
+        }
+
+        console.log("📢 Calling startRazorpayPayment() with order:", orderData);
+
+        // ✅ Step 2: Start Razorpay Payment with correct order ID
+        startRazorpayPayment(orderData, userData);
+
+    } catch (error) {
+        console.error("❌ Error:", error);
+        alert("❌ Something went wrong. Please try again.");
+    }
+});
+
+// ✅ Function to Initiate Razorpay Payment
+function startRazorpayPayment(order, user) {
+    const options = {
+        key: "rzp_test_VZbWUm7n2JeXwc",  // 🔹 Replace with your Razorpay Key
+        amount: order.amount, // ✅ Use correct amount from backend
+        currency: "INR",
+        name: "Evvento Tickets",
+        description: `Ticket for ${user.event_name}`,
+        order_id: order.id,  // ✅ Razorpay Order ID
+        handler: async function (response) {
+            alert("✅ Payment Successful! Transaction ID: " + response.razorpay_payment_id);
+            console.log("💳 Payment Success Response:", response);
+
+            try {
+                // ✅ Step 3: Store Payment Details in Database
+                console.log("📤 Sending Data to save_to_db.php:", JSON.stringify({ ...user, transaction_id: response.razorpay_payment_id }, null, 2));
+
+                const saveResponse = await fetch("http://localhost:8000/save_to_db.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ...user, transaction_id: response.razorpay_payment_id }) // ✅ Now includes `transaction_id`
+                });
+
+                const saveDataText = await saveResponse.text();
+                console.log("✅ Server Save Response:", saveDataText);
+                
+                let saveData;
+                try {
+                    saveData = JSON.parse(saveDataText);  // Try parsing JSON
+                } catch (jsonError) {
+                    console.error("❌ JSON Parsing Error:", saveDataText);
+                    alert("❌ Server Error: Invalid Response from `save_to_db.php`");
+                    return;
+                }
+
+                console.log("✅ Parsed JSON Response:", saveData);
+
+                if (saveData.success) {
+                    // ✅ Open Confirmation Page in New Tab
+                    window.open(`confirmation.html?event=${user.event_name}&date=${document.getElementById("event-date").textContent}&transaction=${response.razorpay_payment_id}&email=${user.email}&phone=${user.phone}&tickets=${user.ticket_quantity}`,"_blank");
+                } else {
+                    alert("❌ Failed to save transaction. Please contact support.");
+                }
+
+                // ✅ No Need to Parse JSON Again
+                alert(saveData.success || saveData.error);
+
+            } catch (error) {
+                console.error("❌ Database Save Error:", error);
+                alert("❌ Failed to save transaction details.");
+            }
+        },
+        prefill: { name: user.name, email: user.email, contact: user.phone },
+        theme: { color: "#ff6000" }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+}
+</script>
+</body>
+</html>

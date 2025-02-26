@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 body {
   height: 100vh;
@@ -34,6 +38,7 @@ nav {
   max-width: 100vw;
   height: 65px;
   background-color: #454545;
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,13 +92,16 @@ main {
   flex-direction: column;
 }
 .btm {
-  background: #ff5733;
+  background: linear-gradient(45deg, #ff5733, #ff7f50);
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+}
+.btm:hover {
+  transform: scale(1.05);
 }
 
 /* ------------------------Navbar greetings name ------------------------------ */
@@ -151,7 +159,6 @@ main {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
-  box-shadow: 0px 4px 20px #000000;
 }
 
 .Event-details {
@@ -171,8 +178,9 @@ main {
 
 /* Event Card */
 .evvent-card {
-  background: white;
+  background: rgb(255, 255, 255);
   border-radius: 10px;
+  box-shadow: 0px 4px 20px #8e8686;
   overflow: hidden;
   width: 300px;
   height: 400px;
@@ -269,6 +277,7 @@ main {
 .event-details h3 {
   margin: 0;
   font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .event-info p,
@@ -705,4 +714,55 @@ button:hover {
   .footer-social a {
     font-size: 20px;
   }
+}
+
+/* -------------------------------Custom alert styles --------------------------------- */
+
+/* 🌟 Elegant Custom Alert Box 🌟 */
+.custom-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85); /* Smooth dark transparent background */
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-width: 320px;
+  max-width: 90%;
+  z-index: 9999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* Show the alert with a smooth effect */
+.custom-alert.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* 🔘 Subtle Close Button */
+.custom-alert button {
+  background: linear-gradient(135deg, #ffa372, #ff7f50);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for button */
+.custom-alert button:hover {
+  background: #ff704d;
+  transform: scale(1.05);
 }
